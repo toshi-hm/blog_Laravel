@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+// App\Models内のPostクラスをインポート
+use App\Models\Post;
+/**
+ * Post一覧を表示する
+ * 
+ * @param Post Postモデル
+ * @return array Postモデルリスト
+ */
+
+class PostController extends Controller
+{
+
+ // インポートしたPostをインスタンス化して$postとして使用
+ public function index(Post $post)
+ {
+     // $postの中身を戻り値にする
+     return $post -> get();
+ }
+ 
+}
