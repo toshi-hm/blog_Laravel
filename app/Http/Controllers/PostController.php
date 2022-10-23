@@ -18,7 +18,7 @@ class PostController extends Controller
  // インポートしたPostをインスタンス化して$postとして使用
  public function index(Post $post)
  {
-  return view("posts/index") -> with(["posts" => $post -> get()]);
+  return view("posts/index") -> with(["posts" => $post -> getPaginateByLimit()]);
  }
  
 }
