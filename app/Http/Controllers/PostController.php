@@ -20,6 +20,10 @@ class PostController extends Controller
  {
   return view("posts/index") -> with(["posts" => $post -> getPaginateByLimit()]);
  }
+ public function create()
+ {
+  return view("posts/create");
+ }
  public function show(Post $post)
  {
   return view("posts/show") -> with(["post" => $post]);
