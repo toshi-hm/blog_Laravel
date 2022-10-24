@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 // App\Models内のPostクラスをインポート
 use App\Models\Post;
+use App\Http\Requests\PostRequest; // use
 /**
  * Post一覧を表示する
  * 
@@ -20,8 +20,19 @@ class PostController extends Controller
  {
   return view("posts/index") -> with(["posts" => $post -> getPaginateByLimit()]);
  }
+ public function create()
+ {
+  return view("posts/create");
+ }
  public function show(Post $post)
  {
   return view("posts/show") -> with(["post" => $post]);
+ }
+ public function store(PostRequest $request, Post $post)
+ {
+  // dd($request->all());
+  $input = $request["post"];
+  $post->fill($input)->save();
+  return redirect("/posts/" . $post->id);
  }
 }
