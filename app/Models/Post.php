@@ -4,14 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
+    use SoftDeletes;
+    use HasFactory;
+    
     protected $fillable = [
       "title",
-      "body"
+      "body",
+      "category_id"
     ];
-    use HasFactory;
+
     // public function getByLimit(int $limit_count = 10)
     // {
      // updated_atで降順に並べた後、limitで制限をかける
@@ -19,6 +24,11 @@ class Post extends Model
    // }
     public function getPaginateByLimit(int $limit_count = 5)
     {
-     return $this -> orderBy("updated_at", "DESC") -> paginate($limit_count);
+     return $this::with("category") -> orderBy("updated_at", "DESC") -> paginate($limit_count);
+    }
+    
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }
